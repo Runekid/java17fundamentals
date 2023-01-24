@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+  <id>vaadin-training</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory></directory>
+      <outputDirectory></outputDirectory>
+      <excludes>
+        <exclude>**/target/**</exclude>
+        <exclude>upload_to_hubspot.py</exclude>
+        <exclude>**/node_modules/**</exclude>
+        <exclude>**/rebel.xml</exclude>
+        <exclude>**/*.iml</exclude>
+        <exclude>**/.*</exclude>
+        <exclude>**/.*/**</exclude>
+        <exclude>**/selenium_standalone_zips/**</exclude>
+        <exclude>**/error-screenshots/**</exclude>
+        <exclude>**/reference-screenshots/**</exclude>
+        <exclude>**/src/test/**</exclude>
+        <exclude>**/frontend-es5/**</exclude>
+        <exclude>**/frontend-es6/**</exclude>
+        <exclude>**/webdriver/**</exclude>
+        <exclude>**/drivers/**</exclude>
+        <exclude>**/VAADIN/gwt-unitCache/**</exclude>
+        <exclude>**/VAADIN/widgetsets/**</exclude>
+        <exclude>**/node/**</exclude>
+        <exclude>**/node_modules/**</exclude>
+        <exclude>**/.vscode/**</exclude>
+        <exclude>**/sonarlint/**</exclude>
+        <exclude>assembly.xml</exclude>
+      </excludes>
+    </fileSet>
+  </fileSets>
+</assembly>

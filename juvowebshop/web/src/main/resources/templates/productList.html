@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>product list</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/card.css}" href="../../static/css/card.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card">
+        <form th:action="@{/search}" method="post">
+            <p>
+                <label th:text="#{productList.filter}">Filter</label>
+                <input type="text" name="keyword" required/>
+            </p>
+            <button type="submit" value="Search" th:text="#{productList.search}">Search</button>
+        </form>
+    </div>
+    <div class="card" th:each="product : ${products}">
+        <a href="productDetail" th:href="@{/productDetail/{id}(id = ${product.getId()})}"><img
+                src="productList.html"
+                th:src="@{/product/image/{id}(id=${product.getId()})}"
+                style="width:100%"></a>
+        <h1 th:text="${product.getName()}">Fail</h1>
+        <div sec:authorize="isAuthenticated()">
+            <p class="price" th:text="${product.getPrice()} + #{productList.euroSign}">$0</p>
+            <form th:action="@{'/productOrder?productId=' + ${product.getId()}}" method="post">
+                <button type="submit" value="addCartItem" th:text="#{productList.addToCart}">Add to
+                    Cart
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

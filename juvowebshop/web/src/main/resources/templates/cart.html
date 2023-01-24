@@ -1,0 +1,48 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/card.css}" href="../../static/css/card.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card" th:each="productOrderEntry : ${productOrder.getProductOrderEntryList()}">
+        <a href="productDetail" th:href="@{/productDetail/{id}(id = ${productOrderEntry.getProduct().getId()})}"><img
+                src="productList.html"
+                th:src="@{'product/image/' + ${productOrderEntry.getProduct().getId()}}"
+                style="width:100%"></a>
+        <h1 th:text="${productOrderEntry.getProduct().getName()}">Fail</h1>
+
+        <p class="price" th:text="${productOrderEntry.getCalculatedPrice()} + #{cart.euroSign}">$0</p>
+
+        <div>
+            <form th:action="@{'/productOrderEntryRemove?productOrderEntryId=' + ${productOrderEntry.getId()}}"
+                  method="post">
+
+                <label th:text="#{cart.amount} + ${productOrderEntry.getAmount()}">Amount: </label>
+
+                <button type="submit" value="removeCartItem" th:text="#{cart.remove}">Remove</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <div th:switch="${not #lists.isEmpty(productOrder.getProductOrderEntryList())}">
+        <div class="card" th:case="${true}">
+            <h1 th:text="#{cart.totalPrice}">Total price</h1>
+            <p class="price" th:text="${productOrder.getTotalPrice()} + #{cart.euroSign}">$0</p>
+            <form th:action="@{'/productOrderComplete?productOrderId=' + ${productOrder.getId()}}" method="post">
+                <button type="submit" value="completeProductOrder" th:text="#{cart.completeOrder}">Complete Order
+                </button>
+            </form>
+
+        </div>
+        <div class="card" th:case="${false}">
+            <h1 th:text="#{cart.buySomething}">Please go buy something</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>

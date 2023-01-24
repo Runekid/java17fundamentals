@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Address detail</title>
+</head>
+<body th:object="${data}">
+    <div th:text="*{firstname}">firstname</div>
+    <div th:text="*{lastname}">lastName</div>
+    <div th:text="*{streetAndHouseNumber}">streetAndHouseNumber</div>
+    <div th:text="*{zipcode}">zipcode</div>
+    <div th:text="*{city}">city</div>
+    <div th:text="*{country}">country</div>
+</body>
+</html>

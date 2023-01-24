@@ -1,0 +1,45 @@
+package com.vaadin.training.elements.solutions.exercise1;
+
+import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.HasSize;
+import com.vaadin.flow.component.HasStyle;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.training.elements.solutions.MainLayout;
+import java.text.DecimalFormat;
+
+@PageTitle(Exercise1View.TITLE)
+@Route(value = Exercise1View.ROUTE, layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
+public class Exercise1View extends Composite<VerticalLayout> implements HasComponents, HasStyle, HasSize {
+
+	public static final String TITLE = "Exercise 1";
+	public static final String ROUTE = "ex1";
+
+	public Exercise1View(){
+		setSizeFull();
+		getContent().setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.STRETCH);
+
+		Div orderEditorWrapper = new Div();
+		orderEditorWrapper.getStyle().set("overflow-y", "auto");
+		add(orderEditorWrapper);
+		getContent().setFlexGrow(1, orderEditorWrapper);
+
+		OrderEditor orderEditor = new OrderEditor();
+		orderEditorWrapper.add(orderEditor);
+
+        Div totalPrice = new Div();
+        totalPrice.getStyle().set("color", "red");
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00€");
+        totalPrice.setText(decimalFormat.format(orderEditor.getTotalPrice()));
+        add(totalPrice);
+
+        orderEditor.addOrderChangeEventListener(event ->
+                totalPrice.setText(decimalFormat.format(orderEditor.getTotalPrice())));
+    }
+}

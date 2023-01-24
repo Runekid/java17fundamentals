@@ -1,0 +1,11 @@
+.task {
+    width: 100%;
+    height: 70px;
+    background-color: #eeeeee;
+    border: solid 1px #c0c0c0;
+}
+
+.droptarget {
+    border: dashed 1px #7cb5ec;
+    align-self: stretch;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>product detail</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/card.css}" href="../../static/css/card.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card" th:object="${product}">
+        <img src="productDetail.html"
+             th:src="@{/product/image/{id}(id=${product.getId()})}"
+             style="width:100%">
+        <h1 th:text="*{getName()}">Fail</h1>
+        <div sec:authorize="isAuthenticated()">
+            <p class="price" th:text="*{getPrice()} + #{productDetail.euroSign}">$0</p>
+        </div>
+        <p th:text="*{getDescription()}">FAILDESC</p>
+
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{'/productOrder?productId=' + *{getId()}}" method="post">
+                <p>
+                    <label th:text="#{productDetail.amount}">Amount: </label>
+                    <input type="number" name="amount" value="1" min="1">
+                </p>
+                <button type="submit" value="addCartItem" th:text="#{productDetail.addToCart}">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <title>Form</title>
+</head>
+<body>
+<h1>Registration of a new vehicle</h1>
+<form method="post" th:object="${vehicle}">
+   <div class="row">
+      <label for="brand" class="label">Brand:</label>
+      <input type="text" th:field="*{brand}" class="input" th:errorClass="inputError"/>
+      <span th:if="${#fields.hasErrors('brand')}" class="error" th:errors="*{brand}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="type" class="label">Type:</label>
+      <input type="text" th:field="*{type}" class="input" th:errorClass="inputError"/>
+      <span th:if="${#fields.hasErrors('type')}" class="error" th:errors="*{type}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="year" class="label">Year:</label>
+      <input type="text" th:field="*{year}" class="input" th:errorClass="inputError"/>
+      <span th:if="${#fields.hasErrors('year')}" class="error" th:errors="*{year}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="fuel" class="label">Fuel:</label>
+      <select th:field="*{fuel}" class="input" th:errorClass="inputError">
+         <option value="-">--Select--</option>
+         <option th:each="f: ${T(be.onurbugdayci.mvc.domain.FuelType).values()}" th:value="${f}" th:text="${f}">
+      </select>
+      <span th:if="${#fields.hasErrors('fuel')}" class="error" th:errors="*{fuel}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="power" class="label">Power:</label>
+      <input type="text" th:field="*{power}" class="input" th:errorClass="inputError"/>
+      <span th:if="${#fields.hasErrors('power')}" class="error" th:errors="*{power}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="transmission" class="label">Transmission:</label>
+      <div th:class="${#fields.hasErrors('transmission')}? inputError:input">
+            <span th:each="t: ${T(be.onurbugdayci.mvc.domain.TransmissionType).values()}">
+               <label th:for="${#ids.next('transmission')}" th:text="${t}">Fuel</label>
+               <input type="radio" th:field="*{transmission}" th:value="${t}"/>
+            </span>
+      </div>
+      <span th:if="${#fields.hasErrors('transmission')}" class="error" th:errors="*{transmission}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="towBar" class="label">Towbar:</label>
+      <input type="checkbox" th:field="*{towBar}" class="input"/>
+   </div>
+   <div class="row">
+      <label for="options" class="label">Options:</label>
+      <select th:field="*{options}" multiple="multiple">
+         <option th:each="option: ${optionList}" th:value="${option}" th:text="${option}">
+      </select>
+   </div>
+   <div class="row">
+      <label for="entryIntoService" class="label">Date entry into service:</label>
+      <input type="text" th:field="*{entryIntoService}" class="input" th:errorClass="inputError"
+             placeholder="dd/mm/yyyy"/>
+      <span th:if="${#fields.hasErrors('entryIntoService')}" class="error"
+            th:errors="*{entryIntoService}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="plate" class="label">Plate:</label>
+      <input type="text" th:field="*{plate}" class="input" th:errorClass="inputError" placeholder="D-XXX-DDD"/>
+      <span th:if="${#fields.hasErrors('plate')}" class="error" th:errors="*{plate}">Invalid</span>
+   </div>
+   <div class="row">
+      <label for="listPrice" class="label">Price (&euro;):</label>
+      <input type="text" th:field="*{listPrice}" class="input" th:errorClass="inputError"/>
+      <span th:if="${#fields.hasErrors('listPrice')}" class="error" th:errors="*{listPrice}">Invalid</span>
+   </div>
+   <input type="submit" value="Register"/>
+</form>
+</body>
+</html>

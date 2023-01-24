@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form</title>
+</head>
+<body>
+<h1>Registration of a vehicle</h1>
+<div>
+    Your entered the following data: <br />
+    <table>
+        <tr>
+            <td>Brand:</td>
+            <td th:text="${vehicle.brand}">brand</td>
+        </tr>
+        <tr>
+            <td>Type:</td>
+            <td th:text="${vehicle.type}">type</td>
+        </tr>
+        <tr>
+            <td>Year:</td>
+            <td th:text="${vehicle.year}">year</td>
+        </tr>
+        <tr>
+            <td>Fuel:</td>
+            <td th:text="${vehicle.fuel}">fuel</td>
+        </tr>
+        <tr>
+            <td>Power:</td>
+            <td th:text="${vehicle.power} + ' kw'">power</td>
+        </tr>
+        <tr>
+            <td>Transmission:</td>
+            <td th:text="${vehicle.transmission}">transmission</td>
+        </tr>
+        <tr>
+            <td>Towbar:</td>
+            <td th:text="${vehicle.towBar?'yes':'no'}">towbar</td>
+        </tr>
+        <tr>
+            <td>Options:</td>
+            <td th:each="o : ${vehicle.options}">
+                <span th:text="${o}+ ' '">option</span>
+            </td>
+        </tr>
+        <tr>
+            <td>Date entry into service :</td>
+            <td th:text="${{vehicle.entryIntoService}}">date</td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td th:text="${{vehicle.listPrice}} + ' €'">price</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

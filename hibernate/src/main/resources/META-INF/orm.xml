@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd ">
+    <named-query name="beers[8]">
+        <query>select b from Beer b where b.alcohol = 8</query>
+    </named-query>
+    <named-query name="beers[5-8]">
+        <query>select b from Beer b where b.alcohol between 5 and 8 order by b.alcohol asc</query>
+    </named-query>
+    <named-query name="beers[4,6,8,10]">
+        <query>select b from Beer b where b.alcohol in(4,6,8,10)</query>
+    </named-query>
+    <named-query name="beers[kriek]">
+        <query>select b from Beer b where b.name like '%kriek%'</query>
+    </named-query>
+    <named-query name="beers[gent]">
+        <query>select b from Beer b where b.brewer.zipCode = '9000'</query>
+    </named-query>
+    <named-query name="beers[gent]bis">
+        <query>select b from Beer b join b.brewer br where br.zipCode = '9000'</query>
+    </named-query>
+    <named-query name="beers[tripel]">
+        <query>select b from Beer b where b.category.name = 'tripel'</query>
+    </named-query>
+    <named-query name="category[9]">
+        <query>select distinct b.category from Beer b where b.alcohol = 9</query>
+    </named-query>
+    <named-query name="category[9]bis">
+        <query>select distinct c from Category as c join c.beers b where b.alcohol = 9</query>
+    </named-query>
+    <named-query name="brewer[10]">
+        <query>select distinct b.brewer from Beer b where b.alcohol = 10</query>
+    </named-query>
+    <named-query name="brewer[10]bis">
+        <query>select distinct br from Brewer br join br.beers b where b.alcohol = 10</query>
+    </named-query>
+    <named-query name="brewer[pils]">
+        <query>select distinct b.brewer from Beer b where b.category.name = 'pils'</query>
+    </named-query>
+    <named-query name="brewer[pils]bis">
+        <query>select distinct br from Brewer as br JOIN br.beers b where b.category.name = 'pils'</query>
+    </named-query>
+    <named-query name="report[alcohol]">
+        <query>select b.alcohol, count(b) from Beer b group by b.alcohol</query>
+    </named-query>
+    <named-query name="report[city]">
+        <query>select b.brewer.city, count(b) from Beer b group by b.brewer.city having count(b) >= 10</query>
+    </named-query>
+    <named-query name="beers[strongest]">
+        <query>select b from Beer b where b.alcohol = (select max(be.alcohol) from Beer be)</query>
+    </named-query>
+    <named-query name="averagePrice[pils]">
+        <query>select avg(b.price) from Beer b where b.category.name='pils'</query>
+    </named-query>
+    <named-query name="update">
+        <query>update Beer b set b.price = (b.price*1.02)</query>
+    </named-query>
+</entity-mappings>

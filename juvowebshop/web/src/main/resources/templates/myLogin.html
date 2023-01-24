@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myLogin.css}" href="../static/css/myLogin.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card">
+        <form method="post">
+            <div class="loginContainer">
+                <label th:text="#{login.username}" style="font-weight: bold">Username</label>
+                <input type="text" placeholder="Enter Username" name="username" th:placeholder="#{login.enterUsername}"
+                       required>
+
+                <label th:text="#{login.password}" style="font-weight: bold">Password</label>
+                <input type="password" placeholder="Enter Password" name="password"
+                       th:placeholder="#{login.enterPassword}" required>
+
+                <button type="submit" name="signin" th:text="#{login.signin}">Login</button>
+            </div>
+
+            <div class="loginContainer" style="background-color:#f1f1f1">
+                <button type="reset" class="cancelbtn" value="cancel" th:text="#{login.cancel}">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

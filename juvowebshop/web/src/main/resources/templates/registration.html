@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" href="../static/css/registration.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card">
+        <form method="post" style="border:1px solid #ccc">
+            <div class="registrationContainer">
+                <h1 th:text="#{registration.header}">Sign Up</h1>
+                <p th:text="#{registration.subHeader}">Please fill in this form to create an account.</p>
+                <hr>
+
+                <label th:text="#{registration.username}" style="font-weight: bold">Username</label>
+                <input type="text" placeholder="Enter Username" name="username" th:value="${param.username}"
+                       th:placeholder="#{registration.enterUsername}" required>
+
+                <label th:text="#{registration.password}" style="font-weight: bold">Password</label>
+                <input type="password" placeholder="Enter Password" name="password" th:value="${param.password}"
+                       th:placeholder="#{registration.enterPassword}" required>
+
+                <div class="clearfix">
+                    <button type="reset" class="cancelbtn" name="action" value="cancel"
+                            th:text="#{registration.cancel}">Cancel
+                    </button>
+                    <button type="submit" class="signupbtn" name="action" value="signup"
+                            th:text="#{registration.signin}">Sign Up
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

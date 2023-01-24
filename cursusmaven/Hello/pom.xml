@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>eu.onurb.poms</groupId>
+        <artifactId>ParentPom</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <groupId>eu.onurb.hello</groupId>
+    <artifactId>Hello</artifactId>
+    <version>1.0</version>
+
+    <name>Hello</name>
+
+    <properties>
+        <log.level>DEBUG</log.level>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>noelvaes</id>
+            <url>https://www.noelvaes.eu/artifactory/student</url>
+        </repository>
+    </repositories>
+
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                    <execution>
+                        <id>create-javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>
+                                jar
+                            </goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <mainClass>eu.onurb.hello.App</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>
+                        ${project.build.directory}/lib
+                    </outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>[4.8,4.12]</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>PROD</id>
+            <build>
+                <finalName>Production</finalName>
+            </build>
+            <properties>
+                <log.level>WARN</log.level>
+                <maven.compiler.debug>false</maven.compiler.debug>
+                <maven.compiler.optimize>true</maven.compiler.optimize>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>
